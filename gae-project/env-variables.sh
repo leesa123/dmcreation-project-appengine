@@ -1,20 +1,21 @@
-#!/bin/sh
+#!/bin/bash
 
 # 0. Set the DM-project name and App-engine-project name.
 #    source project : The dm project was installed Deployment manager
 #    result project : New project will be deployed gae-apps
-_SOURCE_PROJECT_ID=dm-creation-project-0001
-_RESULT_PROJECT_ID=utapp-9547
+_SOURCE_PROJECT_ID=$1
+_RESULT_PROJECT_ID=$2
 
 # 1. Set the variable with about project.
 _DEPLOYMENT_NAME_DM=$_RESULT_PROJECT_ID
-_ORGANIZATION_ID='\"588563882980\"'
-_BILLING_ACCOUNT_NAME=016F9C-C22464-EDEA07
+_ORGANIZATION_ID="\"$3\""
+_BILLING_ACCOUNT_NAME=$4
 
 # 2. Set the variable with about app-engine.
-_APP_NAME=app1
+_APP_NAME=$5
 _DEPLOYMENT_NAME_GAE=$_DEPLOYMENT_NAME_DM'-'$_APP_NAME
-_REGION=asia-northeast1
-_LOCAL=a
+_REGION=$6
+_LOCAL=$7
 _ZONE=$_REGION'-'$_LOCAL
-_RUNTIME=python27
+_RUNTIME=$8
+_VERSION=$9

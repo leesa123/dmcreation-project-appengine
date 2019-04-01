@@ -24,5 +24,7 @@ resources:
           project: [PROJECT]
           # You can select zone in region.
           zone: [ZONE]
-          # YOU can select runtime.
+          # You can select runtime.
           runtime: [RUNTIME]
+          # You can write app-version
+          version: [VERSION]

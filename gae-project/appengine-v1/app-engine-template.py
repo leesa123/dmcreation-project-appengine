@@ -19,12 +19,13 @@ def GenerateConfig(context):
   """Creates the App Engine with multiple templates."""
 
   resources = [{
-      'name': 'app-engine-fire',
+      'name': 'app-engine-fir',
       'type': 'gae-template.py',
       'properties': {
         'project': context.properties['project'],
         'zone': context.properties['zone'],
-        'runtime': context.properties['runtime']
+        'runtime': context.properties['runtime'],
+        'version': context.properties['version']
       }
 
   }]

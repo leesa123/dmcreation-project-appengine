@@ -16,7 +16,7 @@
 def GenerateConfig(context):
     """Creates the App Engine with single templates."""
     resources = [{
-        'name': 'uttest-gae',
+        'name': context.properties['version'],
         'type': 'appengine.v1.version',
         'properties': {
             'deployment': {
