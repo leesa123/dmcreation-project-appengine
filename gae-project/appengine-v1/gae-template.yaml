@@ -22,9 +22,21 @@ resources:
   properties:
           # Change this your project ID.
           project: [PROJECT]
+
           # You can select zone in region.
           zone: [ZONE]
+
           # You can select runtime.
+          # ex) python27, custom
           runtime: [RUNTIME]
-          # You can write app-version
+
+          # App-engine service version. 
           version: [VERSION]
+
+          # GCS bucket object path on deployment_type:F
+          # Cloud registry path on deployment_type:CT
+          # GCS bucket zip path on  deployment_type:Z
+          path: [PATH]
+
+          # F: Files, CT: Docker image, Z:Zip, CBO: Cloud bulid option
+          deployment_type: [DEPLOYMENTTYPE]

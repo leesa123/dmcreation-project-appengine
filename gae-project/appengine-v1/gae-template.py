@@ -11,36 +11,80 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+import logging
 """Creates the App Engine."""
 
 def GenerateConfig(context):
     """Creates the App Engine with single templates."""
-    resources = [{
-        'name': context.properties['version'],
-        'type': 'appengine.v1.version',
-        'properties': {
-            'deployment': {
-                'files': {
-                    'main.py': {
-                        'source_url': 'https://storage.googleapis.com/admin-api-public-samples/hello_world/main.py'
-                    }
-                    
-                }
-            },
-            'servicesId': 'default',
-            'appsId': context.properties['project'],
-            'handlers': [{
-                'script': {
-                    'scriptPath': 'main.app'
-                },
-                'securityLevel': 'SECURE_OPTIONAL',
-                'urlRegex': '/'
-            }],
-            'runtime': context.properties['runtime'],
-            'threadsafe': True,
-            'zones': [
-                context.properties['zone']
-            ]
-        }
-    }]
+    resources = []
+
+    AppendResourceOb(context, resources)
+
     return {'resources': resources}
+
+def AppendResourceOb(context, resources):
+    """Add Json objectd to Resource List."""
+    deployment_type = context.properties['deployment_type']
+    
+    if deployment_type == 'F':
+            resources.append({
+                'name': context.properties['version'],
+                'type': 'appengine.v1.version',
+                'properties': {
+                    'deployment': {
+                        'files': {
+                            'main.py': {
+                                'source_url': context.properties['path']
+                            }
+                        }
+                    },
+                    'servicesId': 'default',
+                    'appsId': context.properties['project'],
+                    'handlers': [{
+                        'script': {
+                           'scriptPath': 'main.app'
+                        },
+                        'securityLevel': 'SECURE_OPTIONAL',
+                        'urlRegex': '/'
+                    }],
+                    'runtime': context.properties['runtime'],
+                    'threadsafe': True,
+                    'zones': [
+                         context.properties['zone']
+                    ]
+                }
+            })
+    elif deployment_type == 'CT':
+            resources.append({
+                'name': context.properties['version'],
+                'type': 'appengine.v1.version',
+                'properties': {
+                    'deployment': {
+                        'container': {
+                            'image': context.properties['path']
+                        }
+                    },
+                    'servicesId': 'default',
+                    'appsId': context.properties['project'],
+                    'handlers': [{
+                        'script': {
+                           'scriptPath': 'main.app'
+                        },
+                        'securityLevel': 'SECURE_OPTIONAL',
+                        'urlRegex': '/'
+                    }],
+                    'runtime': context.properties['runtime'],
+                    'threadsafe': True,
+                    'zones': [
+                         context.properties['zone']
+                    ],
+                    'env': 'flex'
+                }
+            })
+    elif deployment_type == 'Z':
+            print("Z");
+    elif deployment_type == 'CBO':
+            print("CBO");
+    else:
+        logging.log(50, 'deployment_type error')
+        exit()

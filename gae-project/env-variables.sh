@@ -7,15 +7,16 @@ _SOURCE_PROJECT_ID=$1
 _RESULT_PROJECT_ID=$2
 
 # 1. Set the variable with about project.
-_DEPLOYMENT_NAME_DM=$_RESULT_PROJECT_ID
-_ORGANIZATION_ID="\"$3\""
-_BILLING_ACCOUNT_NAME=$4
+_DEPLOYMENT_NAME_DM=$3
+_ORGANIZATION_ID="\"$4\""
+_BILLING_ACCOUNT_NAME=$5
 
 # 2. Set the variable with about app-engine.
-_APP_NAME=$5
-_DEPLOYMENT_NAME_GAE=$_DEPLOYMENT_NAME_DM'-'$_APP_NAME
-_REGION=$6
-_LOCAL=$7
-_ZONE=$_REGION'-'$_LOCAL
+_DEPLOYMENT_NAME_GAE=$6
+_ZONE=$7
+_REGION=`echo $_ZONE | tr '/' '\t' | awk '{print $1}'`
+_LOCAL=`echo $_ZONE | tr '/' '\t' | awk '{print $2}'`
 _RUNTIME=$8
 _VERSION=$9
+_PATH=${10//\//\\\/}
+_DEPLOYMENTTYPE=${11}

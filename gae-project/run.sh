@@ -3,15 +3,17 @@
 # Create project for google-app-engine Application.
 # parameter)  
 #  ex ) ./run.sh dm-creation-project-0001 utapp-9549 588563882980 016F9C-C22464-EDEA07 app1 asia-northeast1 a python27 
-#   $1 ) DM Project
-#   $2 ) App-engine Project
-#   $3 ) OrganizationId
-#   $4 ) BillingAccountId
-#   $5 ) AppName
-#   $6 ) Region
-#   $7 ) Local
-#   $8 ) Runtime
-#   $9 ) Version
+#   $1 ) DM project
+#   $2 ) App-engine project
+#   $3 ) $1 deploy name
+#   $4 ) Organization id
+#   $5 ) Billingaccount id
+#   $6 ) Serviceid
+#   $7 ) $2 deploy name
+#   $8 ) zone (zone = region + local) ex) asia-northeast1-a = 'asia-northeast1' + 'a'
+#   $9 ) Runtime
+#   ${10} ) Version
+#   ${11} ) It is a Container image in flexible environment or GCS bucket path in standard environment 
 
 # 1. Import files
 # env-variables.sh : Import environment-variables for using in func.sh 
@@ -20,9 +22,9 @@
 . ./func.sh
 
 # 2. Check parameter number
-if [ $# -ne 9 ];
+if [ $# -ne 11 ];
 then
-	echo -e '\e[31mYou must set nine arguments\e[0m'
+	echo -e '\e[31mYou must set eleven arguments\e[0m'
 	exit 1
 fi
 

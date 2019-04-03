@@ -25,7 +25,9 @@ def GenerateConfig(context):
         'project': context.properties['project'],
         'zone': context.properties['zone'],
         'runtime': context.properties['runtime'],
-        'version': context.properties['version']
+        'version': context.properties['version'],
+        'path': context.properties['path'],
+        'deployment_type': context.properties['deployment_type']
       }
 
   }]
