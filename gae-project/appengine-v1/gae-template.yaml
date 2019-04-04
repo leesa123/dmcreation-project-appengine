@@ -39,4 +39,4 @@ resources:
           path: [PATH]
 
           # F: Files, CT: Docker image, Z:Zip, CBO: Cloud bulid option
-          deployment_type: [DEPLOYMENTTYPE]
+          deployment_type: [DEPLOYMENTTYPE] 

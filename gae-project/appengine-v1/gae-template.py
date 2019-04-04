@@ -14,6 +14,13 @@
 import logging
 """Creates the App Engine."""
 
+d_type = {
+    'deployment.file': 'F',
+    'deployment.container': 'CT',
+    'deployment.zip': 'Z',
+    'deployment.cloudbuildoption': 'CBO'
+}
+
 def GenerateConfig(context):
     """Creates the App Engine with single templates."""
     resources = []
@@ -26,7 +33,7 @@ def AppendResourceOb(context, resources):
     """Add Json objectd to Resource List."""
     deployment_type = context.properties['deployment_type']
     
-    if deployment_type == 'F':
+    if deployment_type == d_type['deployment.file']:
             resources.append({
                 'name': context.properties['version'],
                 'type': 'appengine.v1.version',
@@ -54,7 +61,7 @@ def AppendResourceOb(context, resources):
                     ]
                 }
             })
-    elif deployment_type == 'CT':
+    elif deployment_type == d_type['deployment.container']:
             resources.append({
                 'name': context.properties['version'],
                 'type': 'appengine.v1.version',
@@ -81,9 +88,33 @@ def AppendResourceOb(context, resources):
                     'env': 'flex'
                 }
             })
-    elif deployment_type == 'Z':
-            print("Z");
-    elif deployment_type == 'CBO':
+    elif deployment_type == d_type['deployment.zip']:
+            resources.append({
+                'name': context.properties['version'],
+                'type': 'appengine.v1.version',
+                'properties': {
+                    'deployment': {
+                        'zip': {
+                            'source_url': context.properties['path']
+                        }
+                    },
+                    'servicesId': 'default',
+                    'appsId': context.properties['project'],
+                    'handlers': [{
+                        'script': {
+                           'scriptPath': 'main.app'
+                        },
+                        'securityLevel': 'SECURE_OPTIONAL',
+                        'urlRegex': '/'
+                    }],
+                    'runtime': context.properties['runtime'],
+                    'threadsafe': True,
+                    'zones': [
+                         context.properties['zone']
+                    ]
+                }
+            })
+    elif deployment_type == d_type['deployment.cloudbuildoption']:
             print("CBO");
     else:
         logging.log(50, 'deployment_type error')
